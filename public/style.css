@@ -1,0 +1,200 @@
+/*------------ RESET CSS ---------------*/
+html {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  *,
+  *:after,
+  *:before {
+    box-sizing: border-box;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    outline: none;
+  }
+  input {
+    line-height: normal;
+  }
+  label,
+  button {
+    cursor: pointer;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 16px;
+    font-family: "Source Sans Pro", sans-serif;
+    background: #ffffff;
+    height: 100vh;
+  }
+
+/*========================================*/
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: flex-start;
+}
+
+.navigator {
+    width: 15%;
+}
+
+.logo {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #dadada;
+}
+
+.logo img {
+    width: 40%;
+}
+
+.menu {
+    padding: 16px 32px;
+}
+
+.menuItem {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    margin-bottom: 12px;
+    border: 1px solid #ececec;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    background: #ececec;
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.header {
+    background: rgb(152, 226, 255);
+    padding: 32px 32px 32px 32px;
+}
+
+.mainBody {
+    flex-grow: 1;
+    background: rgb(241, 241, 241);
+    padding-top: 32px;
+    padding-left: 32px;
+}
+
+.mainBody__deviceControl {
+    background: #fff;
+    width: 40%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.mainBody__deviceControl--title {
+    background: rgb(73, 137, 255);
+    padding: 12px 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.sensorInfo, .ledControl {
+    padding: 12px 24px;
+}
+
+.sensorInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sensorInfo___temp, .sensorInfo___hum, .sensorInfo___light {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    background: rgb(245, 245, 245);
+    border-radius: 8px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.sensorInfo__component--label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.sensorInfo__component--data {
+    font-size: 2rem;
+}
+
+.ledControl {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ledControl__led1, .ledControl__led2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    padding: 12px 24px;
+    background: rgb(245, 245, 245);
+    border-radius: 8px;
+}
+
+.ledControl__led1>span, .ledControl__led2>span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.led1Btn, .led2Btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 40px;
+    height: 20px;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 12px;
+    border: 1px solid #dadada;
+}
+
+.led1Btn__left, .led1Btn__right, .led2Btn__left, .led2Btn__right {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.led1Btn__left, .led2Btn__left {
+    background: rgb(255, 17, 17);
+}
+
+.led1Btn__right, .led2Btn__right {
+    background: transparent;
+}
+

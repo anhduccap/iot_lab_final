@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IOT Smart</title>
+        <script src="jquery-3.6.0.min.js"></script>
+        <script src="chart.min.js"></script>
+        <script src="socket.io/socket.io.js"></script>
+        <script src="main.js"></script>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+<body>
+    <div class="container">
+        <div class="navigator">
+            <div class="logo">
+                <img src="logo.png">
+            </div>
+            <div class="menu">
+                <div class="menuItem">
+                    <span>Dashboard</span>
+                </div>
+                <div class="menuItem">
+                    <span>Main</span>
+                </div>
+                <div class="menuItem">
+                    <span>Chart</span>
+                </div>
+                <div class="menuItem">
+                    <span>Logs</span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="header">
+                <div class="header__title">
+                    <span>MAIN</span>
+                </div>
+            </div>
+            <div class="mainBody">
+                <div class="mainBody__deviceControl">
+                    <div class="mainBody__deviceControl--title">
+                        <span>Device Control</span>
+                    </div>
+                    <div class="sensorInfo">
+                        <div class="sensorInfo___temp">
+                            <div class="sensorInfo__component--label">
+                                <span>Temperature</span>
+                            </div>
+                            <div class="sensorInfo__component--data">
+                                <span>28°C</span>
+                            </div>
+                        </div>
+                        <div class="sensorInfo___hum">
+                            <div class="sensorInfo__component--label">
+                                <span>Humidity</span>
+                            </div>
+                            <div class="sensorInfo__component--data">
+                                <span>80%</span>
+                            </div>
+                        </div>
+                        <div class="sensorInfo___light">
+                            <div class="sensorInfo__component--label">
+                                <span>Light</span>
+                            </div>
+                            <div id="humidity" class="sensorInfo__component--data">
+                                <span>---lux</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ledControl">
+                        <div class="ledControl__led1">
+                            <span>LED 1</span>
+                            <div class="led1Btn" data-click-state="0">
+                                <div class="led1Btn__left">
+                                    
+                                </div>
+                                <div class="led1Btn__right">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ledControl__led2">
+                            <span>LED 2</span>
+                            <div class="led2Btn" data-click-state="0">
+                                <div class="led2Btn__left">
+            
+                                </div>
+                                <div class="led2Btn__right">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
