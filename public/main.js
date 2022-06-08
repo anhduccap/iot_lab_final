@@ -1,8 +1,20 @@
 const socket = io('http://localhost:3000');
 
-socket.on('Server-send-sensor-data', (data) => {
-    $('#humidity').html(`
+socket.on('Server-send-lux-data', (data) => {
+    $('#light').html(`
         <span>${data}lux</span>
+    `);
+});
+
+socket.on('Server-send-temp-data', (data) => {
+    $('#temperature').html(`
+        <span>${data}°C</span>
+    `);
+});
+
+socket.on('Server-send-hum-data', (data) => {
+    $('#humidity').html(`
+        <span>${data}%</span>
     `);
 });
 
