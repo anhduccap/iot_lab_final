@@ -37,7 +37,7 @@ mongoose.connect(
 //     cookie: false
 //    });
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log(`User ${socket.id} connected`);
 
     let options = {
@@ -70,9 +70,9 @@ io.on('connection', (socket) => {
             else if (topic === 'sensor/lux') {
                 data = parseFloat(message.toString()).toFixed(2);
                 const sensorData = new SensorModel({
-                    id: '30001',
-                    label: 'Light',
-                    type: 'BH1750',
+                    id: 'BH1750_001',
+                    device: '62a151d952eb4ca37aaae8de',
+                    type: 'Light',
                     value: data,
                 });
                 sensorData.save((err) => {
@@ -85,9 +85,9 @@ io.on('connection', (socket) => {
             } else if (topic === 'sensor/temp') {
                 data = parseFloat(message.toString()).toFixed(2);
                 const sensorData = new SensorModel({
-                    id: '30002',
-                    label: 'Temperature',
-                    type: 'DHT11',
+                    id: 'DHT11_001',
+                    device: '62a151d952eb4ca37aaae8de',
+                    type: 'Temperature',
                     value: data,
                 });
                 sensorData.save((err) => {
@@ -100,9 +100,9 @@ io.on('connection', (socket) => {
             } else if (topic === 'sensor/hum') {
                 data = parseFloat(message.toString()).toFixed(2);
                 const sensorData = new SensorModel({
-                    id: '30002',
-                    label: 'Humidity',
-                    type: 'DHT11',
+                    id: 'DHT11_001',
+                    device: '62a151d952eb4ca37aaae8de',
+                    type: 'Humidity',
                     value: data,
                 });
                 sensorData.save((err) => {
@@ -122,6 +122,7 @@ io.on('connection', (socket) => {
     });
 });
 
+// Navigate route
 app.get('/', function(req, res){
   res.render('home');
 });
@@ -204,13 +205,29 @@ app.post('/led2', (req, res) => {
     res.send(`Published: ${message}`);
 });
 
-app.get('/sensor', (req, res) => {
+app.get('/api/sensor', (req, res) => {
     let perPage = 10;
-    let page = Math.max(0, req.query.page);
-    SensorModel.find()
+    
+    if (req.query.page == null) {
+        SensorModel.find()
+        .sort({date_created: 'desc'})
+        .populate('device')
+        .exec((err, data) => {
+            SensorModel.count().exec(function(err, count) {
+                res.send({
+                    data: data,
+                    page: 0,
+                    pages: Math.floor(count / perPage)
+                });
+            });
+        });
+    } else {
+        let page = Math.max(0, req.query.page);
+        SensorModel.find()
         .sort({date_created: 'desc'})
         .limit(perPage)
         .skip(page * perPage)
+        .populate('device')
         .exec((err, data) => {
             SensorModel.count().exec(function(err, count) {
                 res.send({
@@ -220,6 +237,23 @@ app.get('/sensor', (req, res) => {
                 });
             });
         });
+    }
 });
+
+app.post('/api/device', async (req, res) => {
+    const Device = new DeviceModel({
+        id: req.body.id,
+        name: req.body.name,
+        image: req.body.image,
+        ip: req.body.ip,
+    });
+
+    Device.save((err) => {
+        if(err) res.send(`Creation error: ${err.message}`);
+        else {
+            res.send('Device was created successfully')
+        }
+    });
+})
 
 //mosquitto_pub -h 192.168.0.106 -p 1883 -u anhduccap -P Duc_password1205 -t control_led -m "led1 off"

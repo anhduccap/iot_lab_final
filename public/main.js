@@ -72,4 +72,275 @@ $(document).ready(() => {
             });
         }
     });
+
+    // navigator
+    $('#menu-log').click(()=>{
+        $('.mainBody__deviceControl').css('display', 'none');
+        $('.mainBody__chart').css('display', 'none');
+        $('.mainBody__dashboard').css('display', 'none');
+        $('.mainBody__log').css('display', 'block');
+
+        $('#menu-dashboard').removeClass('menu-active');
+        $('#menu-main').removeClass('menu-active');
+        $('#menu-chart').removeClass('menu-active');
+        $('#menu-log').addClass('menu-active');
+    });
+    $('#menu-main').click(()=>{
+        $('.mainBody__deviceControl').css('display', 'block');
+        $('.mainBody__chart').css('display', 'none');
+        $('.mainBody__dashboard').css('display', 'none');
+        $('.mainBody__log').css('display', 'none');
+
+        $('#menu-dashboard').removeClass('menu-active');
+        $('#menu-main').addClass('menu-active');
+        $('#menu-chart').removeClass('menu-active');
+        $('#menu-log').removeClass('menu-active');
+    });
+    $('#menu-chart').click(()=>{
+        $('.mainBody__deviceControl').css('display', 'none');
+        $('.mainBody__chart').css('display', 'block');
+        $('.mainBody__dashboard').css('display', 'none');
+        $('.mainBody__log').css('display', 'none');
+
+        $('#menu-dashboard').removeClass('menu-active');
+        $('#menu-main').removeClass('menu-active');
+        $('#menu-chart').addClass('menu-active');
+        $('#menu-log').removeClass('menu-active');
+    });
+    $('#menu-dashboard').click(()=>{
+        $('.mainBody__deviceControl').css('display', 'none');
+        $('.mainBody__chart').css('display', 'none');
+        $('.mainBody__dashboard').css('display', 'block');
+        $('.mainBody__log').css('display', 'none');
+
+        $('#menu-dashboard').addClass('menu-active');
+        $('#menu-main').removeClass('menu-active');
+        $('#menu-chart').removeClass('menu-active');
+        $('#menu-log').removeClass('menu-active');
+    });
+
+    /*============= Render log data ==============*/ 
+    $.ajax({
+        url: 'http://localhost:3000/api/sensor',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: (data) => {
+            console.log(data);
+            let logs = data.data.slice(0, 10);
+            $('#totalLogPage').text(data.pages);
+            $('#currentLogPage').attr('value',1);
+            $('.log__table tbody').html('');
+            logs.forEach((log) => {
+                $('.log__table tbody').append(`
+                <tr>
+                    <td>
+                        <div class="log__table--deviceID log__table--component">
+                            <span>${log.device.id}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--deviceName log__table--component">
+                            <span>${log.device.name}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--ip log__table--component">
+                            <span>${log.device.ip}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--sensor log__table--component">
+                            <span>${log.id}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--ype log__table--component">
+                            <span>${log.type}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--value log__table--component">
+                            <span>${log.value}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="log__table--time log__table--component">
+                            <span>${new Date(log.date_created).toLocaleString()}</span>
+                        </div>
+                    </td>
+                </tr>
+                `);
+            });
+
+            $('#currentLogPage').keypress((e) => {
+                let keyCode = (e.keyCode ? e.keyCode : e.which);
+                if (keyCode == '13') {
+                    let newPage = $('#currentLogPage').val();
+                    let perPage = 10;
+                    let logs = data.data.slice((newPage-1)*perPage, newPage*perPage);
+                    $('#totalLogPage').text(data.pages);
+                    $('#currentLogPage').attr('value',newPage);
+                    $('.log__table tbody').html('');
+                    logs.forEach((log) => {
+                        $('.log__table tbody').append(`
+                        <tr>
+                            <td>
+                                <div class="log__table--deviceID log__table--component">
+                                    <span>${log.device.id}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--deviceName log__table--component">
+                                    <span>${log.device.name}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--ip log__table--component">
+                                    <span>${log.device.ip}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--sensor log__table--component">
+                                    <span>${log.id}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--ype log__table--component">
+                                    <span>${log.type}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--value log__table--component">
+                                    <span>${log.value}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="log__table--time log__table--component">
+                                    <span>${new Date(log.date_created).toLocaleString()}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        `);
+                    });
+                }
+            })
+        },
+        error: (XMLHttpRequest, textStatus, errorThrown) => {
+            console.log(textStatus);
+        }
+    });
+
+    $('.log__header--refresh').click(() => {
+        $.ajax({
+            url: 'http://localhost:3000/api/sensor',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: (data) => {
+                console.log(data);
+                let logs = data.data.slice(0, 10);
+                $('#currentLogPage').val(1);
+                $('#totalLogPage').text(data.pages);
+                $('.log__table tbody').html('');
+                logs.forEach((log) => {
+                    $('.log__table tbody').append(`
+                    <tr>
+                        <td>
+                            <div class="log__table--deviceID log__table--component">
+                                <span>${log.device.id}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--deviceName log__table--component">
+                                <span>${log.device.name}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--ip log__table--component">
+                                <span>${log.device.ip}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--sensor log__table--component">
+                                <span>${log.id}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--ype log__table--component">
+                                <span>${log.type}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--value log__table--component">
+                                <span>${log.value}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="log__table--time log__table--component">
+                                <span>${new Date(log.date_created).toLocaleString()}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    `);
+                });
+    
+                $('#currentLogPage').keypress((e) => {
+                    let keyCode = (e.keyCode ? e.keyCode : e.which);
+                    if (keyCode == '13') {
+                        let newPage = $('#currentLogPage').val();
+                        let perPage = 10;
+                        let logs = data.data.slice((newPage-1)*perPage, newPage*perPage);
+                        $('#totalLogPage').text(data.pages);
+                        $('#currentLogPage').attr('value',newPage);
+                        $('.log__table tbody').html('');
+                        logs.forEach((log) => {
+                            $('.log__table tbody').append(`
+                            <tr>
+                                <td>
+                                    <div class="log__table--deviceID log__table--component">
+                                        <span>${log.device.id}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--deviceName log__table--component">
+                                        <span>${log.device.name}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--ip log__table--component">
+                                        <span>${log.device.ip}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--sensor log__table--component">
+                                        <span>${log.id}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--ype log__table--component">
+                                        <span>${log.type}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--value log__table--component">
+                                        <span>${log.value}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="log__table--time log__table--component">
+                                        <span>${new Date(log.date_created).toLocaleString()}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            `);
+                        });
+                    }
+                })
+            },
+            error: (XMLHttpRequest, textStatus, errorThrown) => {
+                console.log(textStatus);
+            }
+        });
+    });
 });

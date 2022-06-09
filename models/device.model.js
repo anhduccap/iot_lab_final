@@ -3,6 +3,10 @@
 const mongoose = require('mongoose');
 
 const deviceSchema = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -11,11 +15,11 @@ const deviceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type: {
-        type: String,
-        required: true
+    ip: String,
+    is_active: {
+        type: Boolean,
+        default: true,
     },
-    is_active: Boolean,
     date_last_login: {
         type: Number,
         default: null,

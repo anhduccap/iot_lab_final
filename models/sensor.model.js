@@ -7,11 +7,14 @@ const sensorSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    device: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Device'
+    },
     type: {
         type: String,
         required: true
     },
-    label: String,
     value: {
         type: Number,
         default: -1

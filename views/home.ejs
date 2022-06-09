@@ -10,6 +10,7 @@
         <script src="socket.io/socket.io.js"></script>
         <script src="main.js"></script>
         <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     </head>
 <body>
     <div class="container">
@@ -18,16 +19,16 @@
                 <img src="logo.png">
             </div>
             <div class="menu">
-                <div class="menuItem">
+                <div class="menuItem" id="menu-dashboard">
                     <span>Dashboard</span>
                 </div>
-                <div class="menuItem">
+                <div class="menuItem menu-active" id="menu-main">
                     <span>Main</span>
                 </div>
-                <div class="menuItem">
+                <div class="menuItem" id="menu-chart">
                     <span>Chart</span>
                 </div>
-                <div class="menuItem">
+                <div class="menuItem" id="menu-log">
                     <span>Logs</span>
                 </div>
             </div>
@@ -93,6 +94,97 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="mainBody__log">
+                    <div class="mainBody__log--header">
+                        <div class="log__header--left">
+                            <div class="log__header--title">
+                                <span>Logs</span>
+                            </div>
+                            <div class="log__header--searchBox">
+                                <input type="text" name="" id="logSearchInput" placeholder="Search...">
+                                <span class="material-symbols-outlined">search</span>
+                            </div>
+                            <div class="log__header--export">
+                                <span class="material-symbols-outlined">ios_share</span>
+                                <p>Export</p>
+                            </div>
+                        </div>
+                        <div class="log__header--right">
+                            <div class="log__header--refresh">
+                                <span class="material-symbols-outlined">refresh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mainBody__log--body">
+                        <table class="log__table">
+                            <thead>
+                                <tr>
+                                    <th>Device ID</th>
+                                    <th>Device name</th>
+                                    <th>IP</th>
+                                    <th>Sensor</th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>
+                                        <div class="log__table--deviceID log__table--component">
+                                            <span>30042201</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--deviceName log__table--component">
+                                            <span>Wemos D1</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--ip log__table--component">
+                                            <span>192.168.0.1</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--sensor log__table--component">
+                                            <span>DHT11</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--ype log__table--component">
+                                            <span>Temperature</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--value log__table--component">
+                                            <span>25</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="log__table--time log__table--component">
+                                            <span>30/04/2022</span>
+                                        </div>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mainBody__log--footer">
+                        <div class="log__footer--pagination">
+                            <span class="navigatorLogPage" id="prevLogPage">&laquo;</span>
+                            <input type="text" value="" id="currentLogPage">
+                            of
+                            <span id="totalLogPage"></span>
+                            <span class="navigatorLogPage" id="nextLogPage">&raquo;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mainBody__chart">
+                    chart
+                </div>
+                <div class="mainBody__dashboard">
+                    dashboard
                 </div>
             </div>
         </div>

@@ -89,6 +89,10 @@ html {
     background: #ececec;
 }
 
+.menu-active {
+    background: #ececec;
+}
+
 .content {
     height: 100%;
     display: flex;
@@ -198,3 +202,151 @@ html {
     background: transparent;
 }
 
+
+/*====== LOG PAGE ========*/
+.mainBody__log {
+    display: none;
+    width: 85%;
+    margin-left: 5%;
+    background: #fff;
+    padding: 32px 64px;
+    border-radius: 24px;
+    box-shadow: 6px 6px 6px -6px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 6px 6px 6px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 6px 6px -6px rgba(0,0,0,0.75);
+}
+
+.mainBody__log--header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.log__header--left {
+    display: flex;
+    align-items: center;
+}
+
+.log__header--title{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.log__header--searchBox {
+    display: flex;
+    align-items: center;
+    margin-left: 32px;
+    position: relative;
+}
+
+.log__header--searchBox input {
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: 24px;
+    border: 1px solid rgb(175, 175, 175);
+}
+
+.log__header--searchBox span {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.log__header--export {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 32px;
+}
+
+.log__header--refresh {
+    cursor: pointer;
+}
+
+.log__header--right {
+    display: flex;
+    align-items: center;
+}
+
+.mainBody__log--body {
+    margin-bottom: 32px;
+}
+
+.log__table {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 12px;
+}
+
+.log__table thead tr {
+    text-align: center;
+    font-size: 1.35rem;
+    height: 48px;
+    background: rgb(248, 248, 248);
+    color: rgb(59, 59, 59);
+}
+
+.log__table tbody tr {
+    border-top: 1px solid #d4d4d4;
+    height: 48px;
+    font-size: 1.15rem;
+    color: rgb(77, 77, 77);
+}
+
+.log__table--component {
+    text-align: center;
+}
+
+.mainBody__log--footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.log__footer--pagination {
+    display: flex;
+    align-items: center;
+}
+
+.log__footer--pagination input {
+    width: 64px;
+    text-align: center;
+    padding: 12px 12px;
+    margin-right: 12px;
+    border-radius: 5px;
+    border: 1px solid rgb(128, 128, 128);
+}
+
+#totalLogPage{
+    margin-left: 12px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#prevLogPage {
+    margin-right: 12px;
+}
+
+#nextLogPage {
+    margin-left: 12px;
+}
+  
+.navigatorLogPage {
+    color: black;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+  
+.navigatorLogPage:hover {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+
+/*==============================*/
+.mainBody__chart{
+    display: none;
+}
+
+.mainBody__dashboard{
+    display: none;
+}
