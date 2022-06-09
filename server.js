@@ -136,8 +136,8 @@ app.post('/led1', (req, res) => {
     }
 
     const sensorData = new SensorModel({
-        id: '30003',
-        label: 'Led 1 state',
+        id: 'LED1',
+        device: '62a151d952eb4ca37aaae8de',
         type: 'Led',
         value: parseFloat(message),
     });
@@ -175,8 +175,8 @@ app.post('/led2', (req, res) => {
     }
 
     const sensorData = new SensorModel({
-        id: '30004',
-        label: 'Led 2 state',
+        id: 'LED2',
+        device: '62a151d952eb4ca37aaae8de',
         type: 'Led',
         value: parseFloat(message),
     });
