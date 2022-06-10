@@ -84,6 +84,9 @@ $(document).ready(() => {
         $('#menu-main').removeClass('menu-active');
         $('#menu-chart').removeClass('menu-active');
         $('#menu-log').addClass('menu-active');
+
+        $('.header__title').html('');
+        $('.header__title').html('<span>LOG</span>');
     });
     $('#menu-main').click(()=>{
         $('.mainBody__deviceControl').css('display', 'block');
@@ -95,6 +98,9 @@ $(document).ready(() => {
         $('#menu-main').addClass('menu-active');
         $('#menu-chart').removeClass('menu-active');
         $('#menu-log').removeClass('menu-active');
+
+        $('.header__title').html('');
+        $('.header__title').html('<span>MAIN</span>');
     });
     $('#menu-chart').click(()=>{
         $('.mainBody__deviceControl').css('display', 'none');
@@ -106,6 +112,9 @@ $(document).ready(() => {
         $('#menu-main').removeClass('menu-active');
         $('#menu-chart').addClass('menu-active');
         $('#menu-log').removeClass('menu-active');
+
+        $('.header__title').html('');
+        $('.header__title').html('<span>CHART</span>');
     });
     $('#menu-dashboard').click(()=>{
         $('.mainBody__deviceControl').css('display', 'none');
@@ -117,6 +126,9 @@ $(document).ready(() => {
         $('#menu-main').removeClass('menu-active');
         $('#menu-chart').removeClass('menu-active');
         $('#menu-log').removeClass('menu-active');
+
+        $('.header__title').html('');
+        $('.header__title').html('<span>DASHBOARD</span>');
     });
 
     /*============= Render log data ==============*/ 
@@ -224,7 +236,7 @@ $(document).ready(() => {
                         `);
                     });
                 }
-            })
+            });
         },
         error: (XMLHttpRequest, textStatus, errorThrown) => {
             console.log(textStatus);
@@ -336,11 +348,81 @@ $(document).ready(() => {
                             `);
                         });
                     }
-                })
+                });
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => {
                 console.log(textStatus);
             }
         });
+    });
+
+    /* ============ CHART ============== */
+    $.ajax({
+        url: 'http://localhost:3000/api/summary',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: (data) => {
+            let humValues = data.data.humidity.slice(0,12);
+            const humidityChart = new Chart("humidityChart", {
+                type: "line",
+                data: {
+                    labels: ['', '', '', '', '', '', '', '', '', '', '', 'Now'],
+                    datasets: [{
+                        backgroundColor: 'rgb(169,247,255,0.62)',
+                        borderColor: 'rgb(0 163 225 / 57%)',
+                        data: humValues,
+                        label: 'Humidity (%)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Humidity data',
+                    }
+                }
+            });
+
+            let tempValue = data.data.temperature.slice(0,10);
+
+            const temperatureChart = new Chart("temperatureChart", {
+                type: "bar",
+                data: {
+                    labels: ['', '', '', '', '', '', '', '', '', 'Now'],
+                    datasets: [{
+                        backgroundColor: 'red',
+                        data: tempValue,
+                        label: 'Temperature (°C)',
+                        backgroundColor: '#ffadb9',
+                        borderColor: '#f7072b',
+                        barThickness: 10,
+                        borderWidth: 2,
+                        borderRadius: 20,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 45
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Temperatyre data',
+                    }
+                }
+            });
+        }
     });
 });

@@ -8,6 +8,7 @@
         <script src="jquery-3.6.0.min.js"></script>
         <script src="chart.min.js"></script>
         <script src="socket.io/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="main.js"></script>
         <link rel="stylesheet" href="style.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -36,7 +37,7 @@
         <div class="content">
             <div class="header">
                 <div class="header__title">
-                    <span>MAIN</span>
+                    <span>DASHBOARD</span>
                 </div>
             </div>
             <div class="mainBody">
@@ -181,10 +182,18 @@
                     </div>
                 </div>
                 <div class="mainBody__chart">
-                    chart
+                    <div class="chart__humidity">
+                        <canvas id="humidityChart"></canvas>
+                    </div>
+                    <div class="chart__temperature">
+                        <canvas id="temperatureChart"></canvas>
+                    </div>
+                    <div class="chart__light">
+                        <canvas id="lightChart"></canvas>
+                    </div>
                 </div>
                 <div class="mainBody__dashboard">
-                    dashboard
+                    Dashboard
                 </div>
             </div>
         </div>

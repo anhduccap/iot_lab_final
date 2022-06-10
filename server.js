@@ -254,6 +254,27 @@ app.post('/api/device', async (req, res) => {
             res.send('Device was created successfully')
         }
     });
-})
+});
+
+app.get('/api/summary', async (req, res) => {
+    let data = await SensorModel.find().sort('desc');
+    let humidity = [];
+    let temperature = [];
+    let light = [];
+
+    data.forEach((item) => {
+        if (item.type === 'Humidity') humidity.push(item.value);
+        if (item.type === 'Temperature') temperature.push(item.value);
+        if (item.type === 'Light') light.push(item.value);
+    });
+    res.send({
+        message: 'Summary data',
+        data: {
+            humidity: humidity,
+            temperature: temperature,
+            light: light,
+        }
+    });
+});
 
 //mosquitto_pub -h 192.168.0.106 -p 1883 -u anhduccap -P Duc_password1205 -t control_led -m "led1 off"

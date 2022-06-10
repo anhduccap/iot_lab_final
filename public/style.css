@@ -105,6 +105,11 @@ html {
     padding: 32px 32px 32px 32px;
 }
 
+.header__title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .mainBody {
     flex-grow: 1;
     background: rgb(241, 241, 241);
@@ -113,6 +118,7 @@ html {
 }
 
 .mainBody__deviceControl {
+    display: blocl;
     background: #fff;
     width: 60%;
     border-radius: 16px;
@@ -345,7 +351,30 @@ html {
 /*==============================*/
 .mainBody__chart{
     display: none;
+    width: 100%;
 }
+
+.chart__humidity {
+    background: #fff;
+    width: 720px;
+    padding: 32px 64px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+}
+
+.chart__temperature {
+    background: #fff;
+    width: 600px;
+    padding: 32px 64px;
+    border-radius: 16px;
+}
+
+
+
+
+
+
+
 
 .mainBody__dashboard{
     display: none;
