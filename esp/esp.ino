@@ -18,8 +18,8 @@ float hum;
 float temp;
 
 //Wifi
-const char* ssid = "UiTiOt-E3.1";
-const char* password = "UiTiOtAP";
+const char* ssid = "KTX-G4-908";
+const char* password = "30303030";
 
 // MQTT broker
 const char* broker = "uitiot-project.cloud.shiftr.io";
@@ -67,6 +67,33 @@ void callback(char* topic, byte* payload, unsigned int length) {
       digitalWrite(LED2, LOW);
     }
   }
+  else if (topic_str == "dht/detected") {
+    if (message == "1") {
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, HIGH);
+      delay(500);
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      delay(500);
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, HIGH);
+      delay(500);
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      delay(500);
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, HIGH);
+      delay(500);
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+      delay(500);
+      digitalWrite(LED1, HIGH);
+      digitalWrite(LED2, HIGH);
+      delay(500);
+      digitalWrite(LED1, LOW);
+      digitalWrite(LED2, LOW);
+    }
+  }
 }
 
 void setup() {
@@ -106,6 +133,7 @@ void setup() {
   client.publish("test_topic", "Hello mqtt from esp8266");
   client.subscribe("sensor/led1");
   client.subscribe("sensor/led2");
+  client.subscribe("dht/detected");
 }
 
 void loop() {
@@ -133,7 +161,7 @@ void loop() {
   sprintf(data_temp, "%f", temp);
   sprintf(data_hum, "%f", hum);
   sprintf(data_lux, "%f", lux);
-  
+
   client.publish("sensor/temp", data_temp);
   client.publish("sensor/hum", data_hum);
   client.publish("sensor/lux", data_lux);

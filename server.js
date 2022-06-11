@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mqtt = require("mqtt");
 require('dotenv').config();
+const axios = require('axios');
 
 app.set('view engine', 'ejs');
 app.set('views','./views');
@@ -84,6 +85,16 @@ io.on('connection', async (socket) => {
                 });
             } else if (topic === 'sensor/temp') {
                 data = parseFloat(message.toString()).toFixed(2);
+
+                // if(data < 25 || data > 27) {
+                //     await axios({
+                //         method: 'POST',
+                //         url: 'http://localhost:3000dht_detected?mode=1',
+                //     })
+                //     .then( response => console.log('Success'))
+                //     .catch(err => console.log('Axios error'));
+                // }
+
                 const sensorData = new SensorModel({
                     id: 'DHT11_001',
                     device: '62a151d952eb4ca37aaae8de',
@@ -105,6 +116,16 @@ io.on('connection', async (socket) => {
                     type: 'Humidity',
                     value: data,
                 });
+
+                // if(data < 40 || data > 70) {
+                //     await axios({
+                //         method: 'POST',
+                //         url: 'http://localhost:3000dht_detected?mode=1',
+                //     })
+                //     .then( response => console.log('Success'))
+                //     .catch(err => console.log('Axios error'));
+                // }
+
                 sensorData.save((err) => {
                     if(err) console.log(`Save data error: ${err.message}`);
                     else {
@@ -275,6 +296,32 @@ app.get('/api/summary', async (req, res) => {
             light: light,
         }
     });
+});
+
+app.post('/dht_detected', (req, res) => {
+    let message = '';
+    if(parseInt(req.query.mode, 10) === 1) {
+        message = "1";
+    } else {
+        message = "0";
+    }
+
+    let options = {
+        encoding: 'utf8',
+        clean: true,
+        connectTimeout: 4000,
+        clientId: 'NodeJS_Client',
+        username: process.env.MQTT_CLIENT_USERNAME,
+        password: process.env.MQTT_CLIENT_PASSWORD,
+    };
+
+    const client = mqtt.connect(process.env.MQTT_SERVER, options);
+
+    client.on("connect",() => {
+        client.publish("dht/detected", message);
+        client.end();
+    });
+    res.send(`Published: ${message}`);
 });
 
 //mosquitto_pub -h 192.168.0.106 -p 1883 -u anhduccap -P Duc_password1205 -t control_led -m "led1 off"
